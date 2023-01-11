@@ -3,3 +3,6 @@ version: '${project.version}'
 main: de.felixtpg.tictactoe.Main
 api-version: 1.19
 authors: [ FelixTPG ]
+
+commands:
+  getskull:
