@@ -34,6 +34,7 @@ public class SetGameFieldLocationCommand implements CommandExecutor {
         try {
             plugin.getConfig().set("data.location.gamefield", PluginUtils.getStringToLocation(player.getLocation()));
             plugin.saveConfig();
+            player.sendMessage("§aDeine Position wurde erfolgreich.");
         } catch (Exception exception) {
             player.sendMessage("§cEs ist ein Fehler beim speichern aufgetreten.");
             exception.printStackTrace();

@@ -3,13 +3,11 @@ package de.felixtpg.tictactoe.utils;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import org.apache.commons.codec.binary.Base64;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.Field;
@@ -23,7 +21,7 @@ public class PluginUtils {
         this.plugin = plugin;
     }
 
-    public static final ArmorStand setMainArmorStandValues(ArmorStand armorStand) {
+    public static final ArmorStand setStandValues(ArmorStand armorStand) {
         armorStand.setGravity(false);
         armorStand.setArms(false);
         armorStand.setInvulnerable(true);
@@ -36,6 +34,29 @@ public class PluginUtils {
         return armorStand;
     }
 
+    public static ItemStack getHeadItem(int state) {
+        ItemStack item = new ItemStack(Material.LEATHER_HELMET, 1);
+        LeatherArmorMeta helmetMeta = (LeatherArmorMeta) item.getItemMeta();
+
+        switch (state) {
+            case 1: {
+                helmetMeta.setColor(Color.BLUE);
+                break;
+            }
+            case 2: {
+                helmetMeta.setColor(Color.RED);
+                break;
+            }
+            case 0: {
+                helmetMeta.setColor(Color.WHITE);
+                break;
+            }
+        }
+
+        item.setItemMeta(helmetMeta);
+        return item;
+    }
+
     public static Location getLocationFromString(final String s) {
         if (s == null || s.trim().equals("")) {
             return null;
@@ -46,7 +67,7 @@ public class PluginUtils {
             final int x = Integer.parseInt(parts[1]);
             final int y = Integer.parseInt(parts[2]);
             final int z = Integer.parseInt(parts[3]);
-            return new Location(w, x, y, z);
+            return new Location(w, x, y-1.8, z);
         }
         return null;
     }
@@ -56,10 +77,6 @@ public class PluginUtils {
             return "";
         }
         return Objects.requireNonNull(l.getWorld()).getName() + ":" + l.getBlockX() + ":" + l.getBlockY() + ":" + l.getBlockZ();
-    }
-
-    public static void setGameField(Location loc) {
-
     }
 
     public static ItemStack getSkull(String url) {
